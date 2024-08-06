@@ -23,7 +23,7 @@ namespace OOP_NorthwindDbFirst
             //    Console.WriteLine(product.ProductName);
             //} 
             #endregion
-            string[] classes = { "Product", "Order", "Order Details", "Shipper", "Supplier", "Employee", "Customer", "Category" };
+            string[] classes = { "Product", "Category" };
 
             string[] islemler = { "Create", "Read", "Update", "Delete", "Exit" };
 
@@ -95,8 +95,80 @@ namespace OOP_NorthwindDbFirst
                                     }
                                 break;
                                 case "exit":
-                                    Console.WriteLine("Ana Menü");
+                                    Console.WriteLine("Main Menu");
                                 break;
+                            }
+                    }
+                    kullaniciIslem = "";
+                    break;
+                    case "product":
+                    while(kullaniciIslem != "exit")
+                    { 
+                        ProductService productService = new ProductService();
+                        ListIslemler();
+                        kullaniciIslem = Console.ReadLine().ToLower();
+                            switch(kullaniciIslem) 
+                            {
+                                    case "create":
+                                    Product product = new Product();
+                                    Console.WriteLine("Product Name:");
+                                    product.ProductName = Console.ReadLine();
+                                    Console.WriteLine("Unit Price:");
+                                    try
+                                    { 
+                                    product.UnitPrice = decimal.Parse(Console.ReadLine());
+                                    Console.WriteLine("Units in Stock:");
+                                    product.UnitsInStock = short.Parse(Console.ReadLine());
+                                    string createProduct = productService.CreateProduct(product);
+                                    Console.WriteLine(createProduct);
+                                    }
+                                    catch( Exception ex) 
+                                    {
+                                        Console.WriteLine(ex.Message);
+                                    }
+                                    break;
+                                    case "read":
+                                    foreach (Product item in productService.GetAllProducts())
+                                    {
+                                        Console.WriteLine(item.ProductName);
+                                    }
+                                    break;
+                                    case "update":
+                                    Product updateProduct = new Product();
+                                    Console.WriteLine("Product ID:");
+                                    try
+                                    { 
+                                    updateProduct.ProductId = int.Parse(Console.ReadLine());
+                                    Console.WriteLine("Product Name:");
+                                    updateProduct.ProductName = Console.ReadLine();
+                                    Console.WriteLine("Unit Price:");
+                                    updateProduct.UnitPrice = decimal.Parse(Console.ReadLine());
+                                    Console.WriteLine("Units in Stock:");
+                                    updateProduct.UnitsInStock = short.Parse(Console.ReadLine());
+                                    string result = productService.UpdateProduct(updateProduct);
+                                    Console.WriteLine(result);
+                                    }
+                                    catch ( Exception ex ) 
+                                    {
+                                        Console.WriteLine(ex.Message);
+                                    }
+                                    break;
+                                    case "delete":
+                                    Console.WriteLine("Product ID:");
+                                    try
+                                    { 
+                                        int productId = int.Parse(Console.ReadLine());
+                                        string deletedProduct = productService.DeleteProduct(productId);
+                                        Console.WriteLine(deletedProduct);
+                                    }
+                                    catch ( Exception ex ) 
+                                    {
+                                        Console.WriteLine(ex.Message);
+                                    }
+                                    break;
+                                    case "exit":
+                                    Console.WriteLine("Main Menu");
+                                    break;
                             }
                     }
                     kullaniciIslem = "";

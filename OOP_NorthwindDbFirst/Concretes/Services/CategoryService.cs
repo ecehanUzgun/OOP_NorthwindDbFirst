@@ -33,11 +33,11 @@ namespace OOP_NorthwindDbFirst.Concretes.Services
             {
                 _db.Categories.Remove(deletedCategory);
                 _db.SaveChanges();
-                return "Kategori silindi.";
+                return "Category deleted.";
             }
             else 
             {
-                return "Kategori bulunamadı.";
+                return "Category can not find!";
             }
         }
 
@@ -70,11 +70,11 @@ namespace OOP_NorthwindDbFirst.Concretes.Services
                     updated.Description = category.Description;
 
                     _db.SaveChanges();
-                    return "Kategori Güncellendi.";
+                    return "Category updated.";
                 }
                 else
                 {
-                    return "Güncellenecek kategori bulunamadı";
+                    return "Category can not find!";
                 }
             }
             catch(Exception ex)
